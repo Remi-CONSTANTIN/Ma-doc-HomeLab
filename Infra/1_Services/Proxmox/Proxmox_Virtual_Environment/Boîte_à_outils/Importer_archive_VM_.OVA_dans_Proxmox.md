@@ -1,6 +1,7 @@
 # Procédure
 
 1. Télécharger/importer le .ova sur le nœud proxmox (wget/WinSCP etc…)
+<img width="900" height="60" alt="debian_lxc_docker ova" src="https://github.com/user-attachments/assets/a0983f87-35cc-4da7-b766-3984a2c62cfe" />
 
 
 2. Extrayez le fichier OVA à l'aide de la commande tar
@@ -12,6 +13,7 @@ Vous avez maintenant au moins 2 nouveaux fichiers :
 - 1 .vmdk
 - D'autres fichiers utiles en fonction de celui qui a compresser cette VM
 
+<img width="900" height="60" alt="tar_-xf_Debian-LXC-Docker ova" src="https://github.com/user-attachments/assets/4ef2bd55-00dd-4c75-957d-f68b42f0bae5" />
 
 3. Plus qu’à importer la VM à partir du fichier .OVF
 ```
