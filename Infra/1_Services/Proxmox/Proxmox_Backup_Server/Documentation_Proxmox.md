@@ -1,4 +1,3 @@
-
 # Installation
 PBS se monte un peu comme un PVE. C'est à dire qu'il vous faudra une clé USB bootable et un serveur physique pour l'installer. L'installeur est le même que PVE.
 
