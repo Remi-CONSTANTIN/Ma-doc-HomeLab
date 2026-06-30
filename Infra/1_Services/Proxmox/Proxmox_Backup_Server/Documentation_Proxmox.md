@@ -3,7 +3,7 @@ PBS se monte un peu comme un PVE. C'est à dire qu'il vous faudra une clé USB b
 
 Dans un contexte d'entreprise les serveurs de sauvegarde sont la plupart du temps physiques. Si vous vous tentez à le virtualiser sur votre cluster et que celui-ci vient à ne plus être accessible, vous vous serez juste mis des battons dans les roues pour la restauration des données.
 
----
+
 # Configuration
 
 ### Mise à jour
@@ -13,7 +13,7 @@ Dans une installation fraîche, 3 dépôts sont présent :
 - Le troisième concerne le dépôt PBS lui même. Si vous avez souscrit à un abonnement chez proxmox alors laissez le dépôt Entreprise. Dans le cas où vous l'avez monté seulement pour un Home-Lab alors désactivez le et ajouter le `pbs-no-subscription`
 Profitez-en pour mettre à jour la machine.
 
----
+
 ### Création d'un datastore
 
 #### 1.a Ajout d'un/des disque(s)
@@ -41,7 +41,7 @@ Pour ce qui est des paramètres, on se contentera de :
 
 Vous avez donc maintenant un nouveau datastore disponible pour y stocker des sauvegardes !
 
----
+
 ### Connexion au cluster Proxmox
 Une fois le PBS configuré, il faut maintenant rendre accessible le nouveau datastore au cluster Proxmox comme emplacement de sauvegarde.
 
@@ -58,14 +58,14 @@ Une fois cela fait, vous devriez voir le nouveau datastore sous chacun de vos n�
 Pour planifier vos sauvegardes, le procédé ne change pas avec ou sans PBS, tout se passe toujours dans l'onglet `Backup` dans `datacenter`.
 
 
----
+
 ### Redondance
 La redondance d'un PBS n'est pas la même qu'au sens d'un cluster proxmox. C'est à dire que si on déploie deux PBS, les deux ne pourront pas se répartir la charge ni être configurés en Fail-Over. 
 A la place on peut déployer deux PBS sur deux sites différents où celui qui est distant va venir tirer les sauvegardes des machines afin de prévenir la perte de données à cause d'un événement sur le site principal.
 
 Cette architecture en `pull` permet d'éviter que le PBS distant soit accessible via le PBS local et ainsi qu'un potentiel pirate remonte la chaine des PBS. Le PBS local n'a aucune information concernant le distant car c'est celui-ci qui vient tirer lui même les données.
 
----
+
 ### Fonctions utiles
 Si on ne va pas plus loin dans la réflexion on pourrait se dire que PBS n'apporte rien de plus par rapport à une sauvegarde sur un emplacement classique.
 Mais en réalité, nous avons plusieurs gros avantages : 
@@ -95,7 +95,7 @@ De plus la possibilité d'utiliser un `removable device`, ou des bandes magnéti
 #### Namespaces
 Depuis quelques versions, PBS intègre la notion de Namespaces. C'est très utile en contexte d'entreprise : cela permet de ranger les sauvegardes de différents clusters PVE ou différents départements dans le même Datastore sans que tout soit mélangé à la racine, tout en conservant la déduplication globale.
 
----
+
 # Conclusion
 Proxmox Backup Server fournis fiabilité, sécurité et praticité et s'intègre parfaitement à l’écosystème Proxmox sans entraîner de surcoûts de licences.
 
