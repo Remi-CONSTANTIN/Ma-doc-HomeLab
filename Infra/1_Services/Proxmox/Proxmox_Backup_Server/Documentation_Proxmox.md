@@ -13,6 +13,7 @@ Dans une installation fraîche, 3 dépôts sont présent :
 - Le troisième concerne le dépôt PBS lui même. Si vous avez souscrit à un abonnement chez proxmox alors laissez le dépôt Entreprise. Dans le cas où vous l'avez monté seulement pour un Home-Lab alors désactivez le et ajouter le `pbs-no-subscription`
 Profitez-en pour mettre à jour la machine.
 
+---
 
 ### Création d'un datastore
 
@@ -41,6 +42,7 @@ Pour ce qui est des paramètres, on se contentera de :
 
 Vous avez donc maintenant un nouveau datastore disponible pour y stocker des sauvegardes !
 
+---
 
 ### Connexion au cluster Proxmox
 Une fois le PBS configuré, il faut maintenant rendre accessible le nouveau datastore au cluster Proxmox comme emplacement de sauvegarde.
@@ -57,7 +59,7 @@ Vous avez maintenant plusieurs informations à remplir :
 Une fois cela fait, vous devriez voir le nouveau datastore sous chacun de vos nœuds de votre cluster.
 Pour planifier vos sauvegardes, le procédé ne change pas avec ou sans PBS, tout se passe toujours dans l'onglet `Backup` dans `datacenter`.
 
-
+---
 
 ### Redondance
 La redondance d'un PBS n'est pas la même qu'au sens d'un cluster proxmox. C'est à dire que si on déploie deux PBS, les deux ne pourront pas se répartir la charge ni être configurés en Fail-Over. 
@@ -65,6 +67,7 @@ A la place on peut déployer deux PBS sur deux sites différents où celui qui e
 
 Cette architecture en `pull` permet d'éviter que le PBS distant soit accessible via le PBS local et ainsi qu'un potentiel pirate remonte la chaine des PBS. Le PBS local n'a aucune information concernant le distant car c'est celui-ci qui vient tirer lui même les données.
 
+---
 
 ### Fonctions utiles
 Si on ne va pas plus loin dans la réflexion on pourrait se dire que PBS n'apporte rien de plus par rapport à une sauvegarde sur un emplacement classique.
