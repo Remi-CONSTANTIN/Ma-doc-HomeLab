@@ -19,11 +19,15 @@ Pour vérifier cela :
 ```
 sudo cscli collections list
 ```
-Exemple :
-![[vmcours_crowdsec_installation_collection.png]]
+Exemple :  
+<img width="828" height="228" alt="vmcours_crowdsec_installation_collection" src="https://github.com/user-attachments/assets/34ba2274-1a36-402c-9afa-b3bf8ab16c9c" />  
+
+
 (Oui il y avait beaucoup de chose)
-ou simplement, sur une machine fraichement installée :
-![[crowdsec_crowdsec_installation_collection.png]]
+ou simplement, sur une machine fraichement installée :  
+<img width="816" height="137" alt="crowdsec_crowdsec_installation_collection" src="https://github.com/user-attachments/assets/468be692-ba71-4e7e-8e08-552f8ba25ab9" />
+
+
 Les collections sont une composante que nous pouvons ajuster à nos besoins. Nous verrons cela dans la partie `Configuration`
 
 4. Pour finir l'installation , je vous recommande vivement d'installer tout de suite le "Bouncer" iptables afin que CrowdSec puisse bannir automatiquement s'il détecte une activité suspecte
@@ -42,8 +46,10 @@ Par défaut, toutes les IP de réseaux privés sont whitelistés, mais en foncti
 Pour ce faire, rendez-vous sur votre/vos machines où vous avez installé CrowdSec, et plus précisément dans le fichier dédié `/etc/crowdsec/parsers/s02-enrich/whitelists.yaml`.
 (Chez Windows c'est `c:/programdata/crowdsec/config/parsers/s02-enrich/)
 
-Par défaut, le fichier ressemble à cela :
-![[crowdsec_linux_whitelists.yaml.png|417]]
+Par défaut, le fichier ressemble à cela :  
+<img width="433" height="193" alt="crowdsec_linux_whitelists yaml" src="https://github.com/user-attachments/assets/dc8c7a8c-3dd3-459d-9297-06f44288b1ce" />
+
+
 Comme dit précédemment, cela ne me convient pas car cela ne protège pas en cas de mouvements latéraux dans un même réseau. 
 
 Dans mon cas, je préfère whitelister seulement les IPs vraiment dignes de confiances. Cela peut par exemple, être votre serveur ansible ou votre PC Personnel...
@@ -72,8 +78,10 @@ Si vous le faites, voici la commande pour voir si une décision de ban à été 
 ```
 sudo cscli decisions list
 ```
-Exemple :
-![[cscli decisions list.png]]
+Exemple :  
+<img width="899" height="98" alt="cscli decisions list" src="https://github.com/user-attachments/assets/ec5ff220-a1a7-4028-9b14-d329d152e9eb" />
+
+
 La durée de ban par défaut est de 4h (nous verrons comment la changer dans la partie `Profiles`)
 
 Pour supprimer le bannissement après les tests
@@ -89,8 +97,10 @@ sudo cscli decisions delete --id <ID>
 Les profiles sont des listes de règles qui déterminent quelles actions CrowdSec va faire après avoir détecté des actions suspectes.
 
 Vous pouvez retrouver la configuration par défaut dans le fichier `/etc/crowdsec/profiles.yaml`
-(Pour Windows c'est `C:\ProgramData\CrowdSec\config\profiles.yaml`)
-![[profiles.yaml.png]]
+(Pour Windows c'est `C:\ProgramData\CrowdSec\config\profiles.yaml`)  
+<img width="884" height="414" alt="profiles yaml" src="https://github.com/user-attachments/assets/ef5fc3b1-874c-4c19-9ef0-a940ebedd5b3" />
+
+
 Comme vous pouvez le voir ,la décision par défaut est un ban de 4h sans plus d'actions.
 Mais en vérité plus d'options s'offrent à nous.
 Par exemple, les plus intéressantes (à mon sens) sont :
@@ -150,8 +160,10 @@ notifications:
 ```
 
 Si vous décidez de redémarrer le service `sudo systemctl restart crowdsec.service` pour appliquer la configuration et de tester le brutforce (par exemple), votre notification ressemblera à ça : 
-(Le nom et l'image sont des paramètres que vous définissez lors de la création du bot)
-![[discord_notification_id-machine.png]]
+(Le nom et l'image sont des paramètres que vous définissez lors de la création du bot)  
+<img width="822" height="87" alt="discord_notification_id-machine" src="https://github.com/user-attachments/assets/93efbf17-630d-495b-a973-0fb7eac96da1" />
+
+
 Comme vous pouvez le voir, vous avez l'ID de la machine et non pas un nom compréhensible comme son hostname.
 
 Pour corriger cela nous allons désenregistrer notre machine du moteur CrowdSec local (LAPI) puis le réenregistrer en spécifiant le nom.
@@ -183,10 +195,11 @@ systemctl restart crowdsec
 
 8. Si vous arrivez à faire la commande `sudo cscli machines list` sans que cela vous retourne un message d'erreur alors vous avez terminé. Plus qu'à re-tester le brut-force.
 
-Vous devriez avoir ce résultat :
-![[discord_notification_hostname-machine.png]]
-(On remarque aussi que le temps à augmenté grâce au scaling automatique que l'on a activé dans `/etc/crowdsec/profiles.yaml` )
+Vous devriez avoir ce résultat :  
+<img width="550" height="59" alt="discord_notification_hostname-machine" src="https://github.com/user-attachments/assets/f37b74dd-aa6d-4a6b-8bb4-33ebdf4e45c8" />
 
+
+(On remarque aussi que le temps à augmenté grâce au scaling automatique que l'on a activé dans `/etc/crowdsec/profiles.yaml` )
 
 ---
 # Enregistrer l'agent dans la console Web
