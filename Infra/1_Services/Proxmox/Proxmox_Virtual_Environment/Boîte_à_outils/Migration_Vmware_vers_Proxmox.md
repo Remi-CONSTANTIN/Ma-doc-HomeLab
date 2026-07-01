@@ -27,12 +27,15 @@ Migrer une/des VM(s) Linux/Windows de notre ESX vers notre cluster Proxmox
 - `Enable` : Cochez pour activer le stockage
 - `Skip Certificate Verification` : Pour désactiver la vérification du certificat de l'ESX si il ne provient pas de l'autorité de certification de votre domaine
 Une fois tout cela complété et validé, le stockage devrait apparaître sous chacun des nœuds
+<img width="201" height="424" alt="esxi_datastore" src="https://github.com/user-attachments/assets/d4b0c6f9-873d-45a8-97bc-3c50b381fd84" />
 
 #### Migration
 1. Vérifiez que la machine est éteinte sur l'ESX
 2. Retournez sur le cluster proxmox puis allez dans le stockage nouvellement créé
 3. Vous avez devant vous la liste des VMs. Vous remarquerez que leur datastore apparaît dans leur nom
 4. Sélectionnez la VM à transférer et cliquez sur `Import`, vous aurez accès aux paramètres de la VM adaptés à proxmox par rapport à ceux sur l'ESX.
+<img width="815" height="440" alt="vm_import_from_esx_to_proxmox" src="https://github.com/user-attachments/assets/9c886f1e-49af-4a9c-bf66-de1b67dff8d4" />
+
 
 Vérifiez donc que les caractéristiques sont bonnes dans les deux onglets :
 ###### Onglet "General" :
