@@ -69,7 +69,7 @@ URL Contrôle de la source : URL au format `https://<hostname>.<domaine>/<utilis
 	Exemple : https://git.k3s.tadaron/admin/ansible-awx-projects.git
 
 > [!caution]
-> Veillez à bien avoir fait les étapes de configuration optionnelles d'AWX dans la procédure [AWX - Installation GITEA PROD](https://pages.github.com/)
+> Veillez à bien avoir fait les étapes de configuration optionnelles d'AWX dans la procédure [AWX - Installation GITEA PROD]([https://pages.github.com/](https://github.com/tadaron/Mon-Home-Lab/blob/main/Infra/1_Services/AWX/Gitea/AWX-Installation_GITEA_PROD.md))
 
 
 # Troubleshooting
