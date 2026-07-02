@@ -1,6 +1,9 @@
 # Introduction
 Bienvenue dans mon dépôt personel.
-Vous pouvez trouver ici des notes techniques sur des services que j'ai pu tester ou déployer dans mon Home-Lab personnel. Il arrive que je les formule comme des tutoriels.
+Pour faire court sur ma personne, je suis étudiant en informatique qui aime toucher à tout. J'aime tout particulièrement Proxmox et son écosystème.  
+Mon objectif est d'avoir une infrastructure polyvalente, sécuriséeet fiable dans l'optique de pouvoir l'utiliser pour moi et mes proches.
+
+Vous pourrez donc trouver ici des notes techniques sur des services que j'ai pu tester ou déployer dans mon Home-Lab personnel.
 
 # Arborescence
 Dans `/Infra` vous trouverez des notes sur les services et outils que j'utilise actuellement dans mon Home-lab  
