@@ -29,7 +29,7 @@ Vous avez maintenant à compléter plusieurs onglets d'informations :
 
 ### Onglet `Probe remote`
 - `Server address` : IP/hostname d'une des machines du cluster PVE cible au format `<IP/hostname>:port`
-- `Fingerprint` : Empreinte SHA-256 du certificat du PVE cible dans le cas où vous ne gérez pas les certificats avec une autorité de certification. Vous la trouverez dans le menu `System` --> `Cert[...]`
+- `Fingerprint` : Empreinte SHA-256 du certificat du PVE cible dans le cas où vous ne gérez pas les certificats avec une autorité de certification. Vous la trouverez dans le menu `System` --> `Certificate` --> Selectionnez sur `pve-ssl.pem` --> Cliquez sur `View Certificate` --> Copiez le `Fingerprint`  
 <img width="966" height="476" alt="pve_fingerprint" src="https://github.com/user-attachments/assets/88d347b7-fcac-4af1-8e58-53130a3ed545" />  
 
 ### Onglet `Settings`
