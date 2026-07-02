@@ -1,5 +1,5 @@
 # Introduction
-Cette documentation porte sur l'outil Proxmox Datacenter Manager dans sa version 1 (1.1).
+Cette documentation porte sur l'outil Proxmox Datacenter Manager (PDM) dans sa version 1 (1.1).
 En l'état actuel des choses, PDM ne se positionne pas comme un équivalent à vCenter. L'interface de gestion de cluster PVE est beaucoup plus mature pour cet usage.
 
 # Installation
@@ -59,3 +59,8 @@ Vous pouvez continuer et valider la connexion, elle devrait s'afficher sous vos 
 (Vous remarquerez que j'ai utilisé root dans le cadre de ce LAB, mais mon précédent avertissement tient toujours.)
 
 PDM va maintenant rapatrier des informations du cluster et vous pourrez interagir avec celui-ci sur certains points.
+
+## Connexion à un PBS
+La connexion d'un PBS suit la même logique que le PVE aux seules différences que :
+- Vous n'aurez pas l'onglet `Endpoints` car PBS ne fonctionne pas en cluster
+- Et que l'empreinte du certificat est aussi affichable dans le menu `Dashboard`
