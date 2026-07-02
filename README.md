@@ -9,11 +9,7 @@ Dans `/Projets` je compte mettre mes notes sur des projets que j'ai pu mener. Ce
 # Mon Home-Lab
 <img width="630" height="363" alt="Home-Lab" src="https://github.com/user-attachments/assets/8b3f1778-f686-4737-b909-afe04dbaa648" />  
 
-- 1 NAS Synology Deux baies (2x4 To en mirroir)  
-- 3 Mini-PC MiniForums (2 à 64Go de RAM et 1 à 32Go) --> Cluster Proxmox  
-- 1 routeur Ubiquiti Dream Router  
-- 1 Switch Ubiquiti Flex 2.5Gbps 5 ports   
-- 1 Raspberry Pi 4B --> Automatisation Extinction/allumage Home-Lab
+Petite image de mon laboratoire accompagné d'un document plus complet ici : [Mon_Home-LAB](https://github.com/tadaron/Mon-Home-Lab/blob/main/Mon_Home-LAB.md)
 
 # Disclaimer
 Je ne prétends pas détenir la vérité, vous n'aurez ici que des notes d'un étudiant/passionné/curieux, l'utilisation des IA est résonnée et la plupart du contenu que vous lirez a été rédigé par moi.
