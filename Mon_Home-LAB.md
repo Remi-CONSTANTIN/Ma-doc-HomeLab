@@ -45,7 +45,8 @@ Chacune des machines Linux possède une suite d'outils de sécurité :
 - Un agent Teleport pour me simplifier l'accès aux machines
 
 ## Automatisation
-La plupart des tâches automatiques sont gérées via mon AWX afin d'éviter au maximum de devoir gérer les cron sur chacune de mes machines. Il me sert aussi pour appliquer une configuration sur tou[...] 
+La plupart des tâches automatiques sont gérées via mon AWX afin d'éviter au maximum de devoir gérer les cron sur chacune de mes machines. Il me sert aussi pour appliquer une configuration sur toue ou partie de mes serveurs 
+ 
 Je possède tout de même un Ansible sur une Raspberry Pi 4B allumé 24/24h pour l'automatisation de l'extinction/mise en route de mon cluster Proxmox
 
 ## Cloud privé
