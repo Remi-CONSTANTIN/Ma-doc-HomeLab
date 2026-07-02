@@ -12,7 +12,7 @@ Dans `/Projets` je compte mettre mes notes sur des projets que j'ai pu mener. Ce
 # Mon Home-Lab
 <img width="630" height="363" alt="Home-Lab" src="https://github.com/user-attachments/assets/8b3f1778-f686-4737-b909-afe04dbaa648" />  
 
-Petite image de mon laboratoire accompagné d'un document plus complet ici : [Mon_Home-LAB](https://github.com/tadaron/Mon-Home-Lab/blob/main/Mon_Home-LAB.md)
+Petite image de mon laboratoire accompagné d'un document plus complet ici : [Mon_Home-LAB](https://github.com/tadaron/Mon-Home-Lab/blob/main/Mon_Home-LAB.md)  
 (Les supports ont été conçus et imprimés par moi-même afin de pouvoir les empiler)
 
 
