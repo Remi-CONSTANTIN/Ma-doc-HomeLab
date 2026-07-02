@@ -1,4 +1,4 @@
-# Introducion
+# Introduction
 Bienvenue dans mon dépôt personel.
 Vous pouvez trouver ici des notes techniques sur des services que j'ai pu tester ou déployer dans mon Home-Lab personnel. Il arrive que je les formule comme des tutoriels.
 
