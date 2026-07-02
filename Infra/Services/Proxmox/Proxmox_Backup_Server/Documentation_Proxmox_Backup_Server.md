@@ -1,7 +1,7 @@
 # Installation
 PBS se monte un peu comme un PVE. C'est à dire qu'il vous faudra une clé USB bootable et un serveur physique pour l'installer. L'installeur est le même que PVE.
 
-Dans un contexte d'entreprise les serveurs de sauvegarde sont la plupart du temps physiques. Si vous vous tentez à le virtualiser sur votre cluster et que celui-ci vient à ne plus être accessible, vous vous serez juste mis des battons dans les roues pour la restauration des données.
+Dans un contexte d'entreprise les serveurs de sauvegarde sont la plupart du temps physiques. Si vous vous tentez à le virtualiser sur votre cluster et que celui-ci vient à ne plus être accessible, vous vous serez juste mis des battons dans les roues pour une éventuelle restauration de données.
 
 
 # Configuration
