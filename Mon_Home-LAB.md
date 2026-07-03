@@ -24,7 +24,8 @@ Ou du moins pas une usine à gaz pour économiser des ressources sur mon cluster
 # Mes outils triés par thématique
 ## Calcule
 J'utilise **Promox** comme hyperviseur car gratuit, intéressant et puissant. Je possède actuellement 3 nœuds : 1 nœud Prod (64Go RAM), 1 nœud DEV (64Go RAM) et 1 autre nœud DEV (32Go RAM).  
-La plupart des machines virtuelles fonctionnent sous **Debian** saupoudré d'un peu de LXC (principalement Debian aussi) et accompagné de rares VMs Windows Server
+La plupart des machines virtuelles fonctionnent sous **Debian** saupoudré d'un peu de LXC (principalement Debian aussi) et accompagné de rares VMs Windows Server  
+Voir détails dans [A compléter]()
 
 ## Stockage
 J'ai choisi l'environnement Synology pour mon stockage car éprouvé, documenté. Ce n'est pas la meilleure option pour l'apprentissage mais il me fallait quelque chose de fiable.  
@@ -46,13 +47,18 @@ Chacune des machines Linux possède une suite d'outils de sécurité :
 
 ## Automatisation
 La plupart des tâches automatiques sont gérées via mon AWX afin d'éviter au maximum de devoir gérer les cron sur chacune de mes machines. Il me sert aussi pour appliquer une configuration sur toue ou partie de mes serveurs 
- 
 Je possède tout de même un Ansible sur une Raspberry Pi 4B allumé 24/24h pour l'automatisation de l'extinction/mise en route de mon cluster Proxmox
+Voir détails dans [A compléter]()
 
 ## Cloud privé
-Mes services de compute et de stockage me permettent d'autoheberger un serveur Nextcloud ce qui m'a permis de me séparer de mon abonnement Onedrive.  
-J'en fais d'ailleurs profiter mes proches
+Mes services de compute et de stockage me permettent d'autoheberger un serveur Nextcloud me permettant de me séparer de mes abonnements chez des fournisseurs externes (Onedrive, Google Photo).  
+J'en fais d'ailleurs profiter un proche et peut être bientôt plus ?
 
 ## Supervision
 Et pour avoir une visibilité et des alertes sur d'eventuels problèmes dans mon "parc", je supervise le tout via Checkmk.  
-Pourquoi ? Tout simplement parce que je l'utilise en milieu professionel, c'est donc une bonne opportunité d'apprentissage 
+Pourquoi ? Tout simplement parce que je l'utilise en milieu professionel, c'est donc une bonne opportunité d'apprentissage.   
+Voir détails dans [A compléter]()
+
+# Divertissement
+Un des premiers services que j'ai commencé à auto-herberger a été FreshRSS pour faire ma veille informatique. C'est un outil simple qui fait très bien ce qu'on lui demande. Je suis tout de même à la recherche d'une autre solution qui pourrait me faire des résumés de l'actualité. Je suppose une solution basée sur IA ?  
+J'ai aussi une instance JellyFin pour pouvoir regarder des films sur mes différents supports sans avoir à déplacer un disque dur. On mentionnera le fait que c'est le NAS qui heberge les films afin de ne pas surcharger les SSD de mes noeuds PVE
