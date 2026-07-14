@@ -65,8 +65,8 @@ Contrairement à ZFS ou Ceph, il n'y a aucune réplication à configurer côté 
 
 ##### Inconvénients
 - Le SPOF (Single Point of Failure) : Si votre NAS/SAN tombe en panne, toutes les VMs de tout le cluster s'arrêtent net. Pour éviter cela, il faut redonder le NAS/SAN lui-même, ce qui double la facture.
-- La dépendance au réseau : Tout le trafic de lecture/écriture des disques passe par le réseau. Sur une simple prise 1 Gbps, les performances seront très mauvaises. Il est fortement recommandé d'avoir un réseau dédié au stockage en 10 Gbps minimum (ou via agrégation de liens).
-- Le coût : Le matériel réseau haut débit et les baies de disques dédiées représentent un investissement financier important.
+- La dépendance au réseau : Tout le trafic de lecture/écriture des disques passe par le réseau. Sur une simple prise 1 Gbps, les performances seront très mauvaises. Il est fortement recommandé d'avoir un réseau dédié au stockage en 10 Gbps minimum (ou via agrégation de liens)
+- Le coût : Le matériel réseau haut débit et les baies de disques dédiées représentent un investissement financier important
 
 ---
 # 2 - Règles de haute-disponibilité
