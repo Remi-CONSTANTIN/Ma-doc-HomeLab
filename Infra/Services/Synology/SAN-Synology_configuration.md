@@ -29,7 +29,7 @@ Passez donc cette étape
 <img width="477" height="451" alt="iscsi-target_selection" src="https://github.com/user-attachments/assets/14b1f9b7-d219-4870-b57f-8ce56bbcf8df" />
 
 > [!note]
-> `Target` : Composant qui permet aux machines externes de se connecter au LUN. Sans lui, le LUN est innaccessible car non proposé aux machines exterieures.
+> `Target` : Composant qui permet aux machines externes de se connecter au LUN. Sans lui, le LUN est innaccessible car non proposé aux machines exterieures
 
 5. À cette étape, vous avez la possibilité de définir des autorisations d'accès pour certaines machines. Il faut savoir que les identifiants utilisés ne sont pas les IP, mais les `Initiator Name`.
 Mais ici, ne vous embêtez pas : autorisez tout le monde   
@@ -40,7 +40,7 @@ Mais ici, ne vous embêtez pas : autorisez tout le monde
 
 6. Vous avez terminé, plus qu'à valider la synthèse. Attendez quelques secondes et vous verrez devant vous votre premier LUN
 
-<img width="1158" height="620" alt="LUN_summary" src="https://github.com/user-attachments/assets/9656f88c-38f4-4bfd-8b35-4634737ce7d9" />  
+<img width="810" height="434" alt="LUN_summary" src="https://github.com/user-attachments/assets/9656f88c-38f4-4bfd-8b35-4634737ce7d9" />  
 
 # La suite ?
 En l'état des choses, vous pouvez déjà utiliser ce que nous venons de faire pour, par exemple, créer un datastore sur votre cluster Proxmox, comme je vous montre [ici](https://github.com/tadaron/Mon-Home-Lab/blob/main/Infra/Services/Proxmox/Proxmox_Virtual_Environment/Stockage/proxmox_iscsi_lun_datastore.md). 
