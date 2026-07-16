@@ -3,8 +3,11 @@ Cette procédure fait suite à la création d'un LUN sur mon NAS Synolgy que vou
 L'objectif est d'utiliser un LUN pour créer un datastore Proxmox pour y mettre, par exemple, des machines virtuelles, ISOs ou images de conteneurs.  
 
 # Procédure
-Pouvoir utiliser un LUN comme datastore Proxmox ne se fait malheureusement pas en 2 clique et necessite dans un premier temps la connexion du LUN puis son formatage.
-Nous verrons comment faire cela ici.
+Pouvoir utiliser un LUN comme datastore Proxmox ne se fait malheureusement pas en 2 clique et necessite dans un premier temps la connexion du LUN puis son formatage. Nous verrons comment faire cela ici.
+
+## 0. Prérequis
+Veuillez à avoir créé un LUN, à l'avoir associé à une cible iSCSI accessible depuis votre cluster PVE.  
+Si besoin d'aide sur un NAS Synology, reférez vous à me documentation de [mise en place rapide](https://github.com/tadaron/Mon-Home-Lab/blob/4146b9909a38964018f17ecdcbde4efbe6cc987b/Infra/Services/Synology/SAN-Synology_configuration.md).
 
 ## 1. Connexion du LUN
 Rendez-vous sur votre cluster PVE dans l'onglet `Datacenter` --> `Storage` --> Cliquez sur `Add` --> Sélectionnez `iSCSI`
@@ -28,9 +31,16 @@ Re-cliquez sur `Add`, puis, cette fois, séléctionnez `LVM`
 Remplissez toutes les informations relative au LUN à formater : 
 - `ID` : Comme d'habitude c'est le nom d'affichage de ce stockage dans Proxmox
 - `Base Storage` : Séléctionnez la cible iSCSI sur laquelle aller chercher le lUN (j'ai nommé la mienne `LUN-Proxmox1` par abus de langage)
-- `Base Volume` : Le LUN visé. Vous pouvez avoir plusieurs LUN sous la même cible iSCSI
+- `Base Volume` : Le LUN précis visé. Pour rappel, vous pouvez avoir plusieurs LUN disponibles sous la même cible iSCSI
 - `Volume group` : A vous de choisir le nom du VG qui va accueillir les données
 - `Content` : Le type de contenu que vous voulez y mettre (`Disk image` et/ou `Container`)
 - `Shared` : Permet de spécifier au cluster PVE que c'est un emplacement partagé et pas un stockage local. Cela permet la migration de machine inter-noeuds sans coupure
 - `Wipe Removed Disk` : Habituellement, lors d'une suppression de disque seul l'index est modifié mais pas rééllement les données sur le disque. Cette option permet d'écraser les données par des zéros, cela peut etre utile dans des environnements sensibles (bancaire, médical etc...)
 - `Allow Snapshots as Volume-Chain` :  En Beta sur PVE 9.2.3. Permet de faire des "snapshots" sur un stockage LVM qui ne le supporte habituellement pas.
+
+Une fois cela fait, vous devriez voir un nouvel emplacement de stockage, mais cette fois ci utilisable pour y mettre des VMS/conteneurs
+
+# Conclusion
+L'utilisation d'un SAN sous Proxmox n'est pas chose particulièrement aisée et optimisée.  
+En effet on notera l'impossiblité d'avoir accès à des snapshots fiables sur **PVE 9.2.3** même si la fonctionnalité `Allow Snapshots as Volume-Chain` nous est proposé en Preview.  
+En l'état des choses, supporte mieux la snapshot. VMWare propose le système de fichier `VMFS` et XCP-NG utilise lui aussi LVM mais stock les VMs en `.VHD`.
