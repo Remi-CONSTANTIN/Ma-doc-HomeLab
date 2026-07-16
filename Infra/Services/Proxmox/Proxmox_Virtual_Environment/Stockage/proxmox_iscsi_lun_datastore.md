@@ -43,6 +43,6 @@ Une fois cela fait, vous devriez voir un nouvel emplacement de stockage, mais ce
 
 # Conclusion
 L'utilisation d'un SAN sous Proxmox n'est pas chose particulièrement aisée ni optimisée.    
-En effet, on notera l'impossibilité d'avoir accès à des snapshots fiables sur **PVE 9.2.3**, même si la fonctionnalité `Allow Snapshots as Volume-Chain` nous est proposée en Preview.  
+En effet, on notera l'impossibilité d'avoir accès à des snapshots fiables sur **PVE 9.2.3**, même si la fonctionnalité `Allow Snapshots as Volume-Chain` nous est proposée en Preview. On notera aussi le fait que le LVM ne fait pas de `Thin provisionning`et reserve donc la taille entière de la machine dès la création (Thick provisionning).   
 
 En l'état des choses, la concurrence supporte mieux les snapshots. VMWare propose le système de fichier `VMFS`, et XCP-NG utilise lui aussi LVM mais stocke les VMs en `.VHD`.
