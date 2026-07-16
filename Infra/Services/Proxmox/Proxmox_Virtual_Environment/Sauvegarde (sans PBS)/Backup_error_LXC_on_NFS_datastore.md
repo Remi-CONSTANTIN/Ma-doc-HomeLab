@@ -1,6 +1,6 @@
 # Contexte
-Une erreur survient lors de la sauvegarde d'un conteneur LXC sur un datastore basé sur un partage NFS
-La sauvegarde est ici gérée par PVE. Aucun PBS n'intervient ici
+Une erreur survient lors de la sauvegarde d'un conteneur LXC sur un datastore NFS.  
+La sauvegarde est ici gérée par PVE. Aucun PBS n'intervient ici.
 
 # Exemple
 
