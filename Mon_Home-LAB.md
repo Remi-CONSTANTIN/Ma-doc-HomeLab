@@ -6,11 +6,11 @@ Chaque grande thématiques va être abordée dans sa propre partie.
 Je choisis les outils que je mets dans mon home-lab en me basant sur ces critères :  
 
 - **Gratuit**  
-Etant étudiant il m'est toujours plus simple d'accéder à une technologie quand celle-ci ne pose pas de contrainte financière
+Etant étudiant il m'est toujours plus simple d'accéder à une technologie quand celle-ci ne pose pas de contrainte financière  
 Et à minima avec une Community Edition et dans l'idéal open-source
 
 - **Simple d'exploitation, d'administration et de réparation**  
-Parce qu'un bon outil est un outil qu'on aime manipuler et qu'on ne remet pas à plus tard parce que c'est un enfer à debugger
+Parce qu'un bon outil est un outil qu'on aime manipuler et qu'on ne remet pas à plus tard
 
 - **Intéressant**  
 Logique, parce qu'apprendre doit rester un plaisir
