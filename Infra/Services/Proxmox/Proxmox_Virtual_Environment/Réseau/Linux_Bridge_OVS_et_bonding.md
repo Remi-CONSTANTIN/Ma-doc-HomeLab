@@ -1,11 +1,16 @@
 # Introduction
-Lorem ipsum
+Nous parlerons ici de la partie réseau des noeuds PVE sans se pencher sur la partie SDN que nous verrons dans une autre partie.  
+
 
 # Linux Bridge VS OVS
 ## Linux Bridge
-Lorem ipsum
+Le Linux Bridge est le commutateur logiciel historique du noyau Linux, il a donc été épprouvé par des millions d'utilisateurs. Il supporte les VLAN (ce qui n'a pas toujours été le cas) et le STP (assez daté et pas très efficace). Il est d'ailleurs utilisé dans le SDN de Proxmox.  
+Convient très bien à 90% des utilisateurs mais reste assez limité
+
 ## OVS
-Lorem ipsum
+Plus qu'un simple "Bridge", c'est un commutateur multicouche virtuel complet, conçu par et pour l'industrie du Cloud. Il possède sa propre base de données interne (ovsdb) pour stocker sa configuration.  
+Permet beaucoup de choses comme : brider la bande passante par VM, être pilotable via API par des contrôleurs SDN externes (OpenDaylight) grâce à OpenFlow, supporte le RSTP. Il permet aussi d'envoyer des statistiques détaillées de tous les flux qui le traversent vers un serveur de supervision, ou ordonner la copie exacte du trafic d'une VM vers une autre pour qu'un pare-feu ou une sonde de sécurité puisse l'analyser.  
+C'est une solution complète, plus poussée mais plus complexe que le Linux bridge et pas forcément utile à tout le monde  
 
 # Bond (aggrégat de lien)
 
