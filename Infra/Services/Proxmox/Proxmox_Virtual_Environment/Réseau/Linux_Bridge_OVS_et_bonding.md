@@ -11,13 +11,16 @@ Lorem ipsum
 
 ## Les différents types
 
-- `Round-robin (balance-rr)`: Transmit network packets in sequential order from the first available network interface (NIC) slave through the last. This mode provides load balancing and fault tolerance.
-- `Active-backup (active-backup)`: Only one NIC slave in the bond is active. A different slave becomes active if, and only if, the active slave fails. The single logical bonded interface’s MAC address is externally visible on only one NIC (port) to avoid distortion in the network switch. This mode provides fault tolerance.
-- `XOR (balance-xor)`: Transmit network packets based on [(source MAC address XOR’d with destination MAC address) modulo NIC slave count]. This selects the same NIC slave for each destination MAC address. This mode provides load balancing and fault tolerance.
-- `Broadcast (broadcast)`: Transmit network packets on all slave network interfaces. This mode provides fault tolerance.
-- `IEEE 802.3ad Dynamic link aggregation (802.3ad)(LACP)`: Creates aggregation groups that share the same speed and duplex settings. Utilizes all slave network interfaces in the active aggregator group according to the 802.3ad specification.
-- `Adaptive transmit load balancing (balance-tlb)`: Linux bonding driver mode that does not require any special network-switch support. The outgoing network packet traffic is distributed according to the current load (computed relative to the speed) on each network interface slave. Incoming traffic is received by one currently designated slave network interface. If this receiving slave fails, another slave takes over the MAC address of the failed receiving slave.
-- `Adaptive load balancing (balance-alb)`: Includes balance-tlb plus receive load balancing (rlb) for IPV4 traffic, and does not require any special network switch support. The receive load balancing is achieved by ARP negotiation. The bonding driver intercepts the ARP Replies sent by the local system on their way out and overwrites the source hardware address with the unique hardware address of one of the NIC slaves in the single logical bonded interface such that different network-peers use different MAC addresses for their network packet traffic.
+- `Round-robin (balance-rr)`: Transmet les paquet une fois par interface (paquet 1 sur interface A, paquet 2 sur interface B, paquet 3 sur interface A et ansi de suite). Cela necessite que le switch physique soit configuré avec une agrégation statique (Static EtherChannel). Nous avons donc une tolérance de panne et une répartition de charge
+- `Active-backup (active-backup)`: Basiquement un mode avec une interface principale et une interface de secours. Cela ne fournis que de la tolérance de panne.  
+- `XOR (balance-xor)`: Fait de la répartition de charge en se basant sur un hash (calculé sur les adresses MAC ou IP source/destination). Contrairement au Round-Robin, ce mode garantit que tous les paquets d'une même session (par exemple, un transfert de fichier) passeront toujours par le même câble, évitant ainsi le problème des paquets désordonnés. Cela nécessite que le switch doit être configuré en agrégation statique  
+- `Broadcast (broadcast)`: Envoie les paquets sur toutes les interfaces afin de prévenir toute perte de paquets. Cela gaspille beaucoup de bande passante mais fournis une fiabilité extrème. Ici acune répartition de charge mais une tolérance de panne avancée
+- `IEEE 802.3ad Dynamic link aggregation (802.3ad)(LACP)`: Protocole standard en datacenter. Permet l'aggrégation de lien de façon intelligente et l'additionnement de la bande passante*. Nous avons donc tolérance de panne et addition de la bande passante
+- `Adaptive transmit load balancing (balance-tlb)`: Fonctionne comme `Active-backup` à la différence que ça répartis le traffic sortant sur les interfaces en fonction de la charge. Nous avons donc une répartition de charge pour les flux sortants et une tolérance de panne. De plus il ne necessite pas de toucher à la configuration des switchs
+- `Adaptive load balancing (balance-alb)`: Fonctionne comme le `balance-tlb`, mais ajoute la répartition de charge pour les flux entrants. On peut profiter de cette répartition de charge sans toucher au switch grâce une mécanismee qui simule le LACP. Peu recommandé. Comme pour le `LACP`, permet d'augmenter la bande passante maximum et d'avoir une tolérance de panne.
+
+> [!note]
+> Le LACP ne permet pas d'augmenter la bande passante sur un seul flux. Il l'augmente en ajoutant le nombre de flux simultanés (métaphore : on ajoute une voie à l'autoroute, on n'augmente pas sa vitesse)
 
 ---
 
