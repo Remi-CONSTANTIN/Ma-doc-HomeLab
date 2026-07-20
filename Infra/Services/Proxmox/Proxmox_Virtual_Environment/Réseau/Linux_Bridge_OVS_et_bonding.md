@@ -19,6 +19,7 @@ Lorem ipsum
 - `Adaptive transmit load balancing (balance-tlb)`: Linux bonding driver mode that does not require any special network-switch support. The outgoing network packet traffic is distributed according to the current load (computed relative to the speed) on each network interface slave. Incoming traffic is received by one currently designated slave network interface. If this receiving slave fails, another slave takes over the MAC address of the failed receiving slave.
 - `Adaptive load balancing (balance-alb)`: Includes balance-tlb plus receive load balancing (rlb) for IPV4 traffic, and does not require any special network switch support. The receive load balancing is achieved by ARP negotiation. The bonding driver intercepts the ARP Replies sent by the local system on their way out and overwrites the source hardware address with the unique hardware address of one of the NIC slaves in the single logical bonded interface such that different network-peers use different MAC addresses for their network packet traffic.
 
+---
 
 ## Cas pratique
 Afin de tester la théorie vue précédemment, nous allons mettre en place une redondance sur l'interface réseau qui nous permet d'accéder au noeud PVE (interface web, ssh etc..). Nous partons ici du principe que vous manipulez sur une machine ayant une configuration basique de son réseau et ne possédant par conséquent qu'une seule interface réseau.  
@@ -44,23 +45,35 @@ On notera aussi la présence de ma première carte réseau `nic0` et de son Linu
 > N'appliquez pas les modifications que nous allons faire avant que je vous l'ai explicité précisé, au risque de perdre l'accès distant à votre noeud !
 
 1. Avant de pouvoir créer le bond avec nos deux cartes réseaux (`ens19` et `nic0`) nous devons d'abord désassocier `nic0` du `vmbr0` en éditant le Linux Bridge :  
-<img width="866" height="540" alt="empty_vmbr0" src="https://github.com/user-attachments/assets/db525872-03e6-44ab-b4a3-9b52e716fcb9" />  
+<img width="779" height="486" alt="empty_vmbr0" src="https://github.com/user-attachments/assets/db525872-03e6-44ab-b4a3-9b52e716fcb9" />  
+
 Le champs `Bridge Port` doit être vide (pour l'instant)
 
 2. Une fois cela fait, créez un `Bond` en cliquant sur le bouton `Create` puis en séléctionnant `Linux Bond`  
 Il Vous sera demandé de compléter plusieurs champs :  
 - `Name` : Nom de votre aggrégat  
-- `IPv4/CIDR` : Ne mettez pas d'IP directement sur le bond car nous partons du principe que nous allons aussi l'utiliser pour des machines virtuelles
-- `Gateway (IPv4)` : Pas d'IP pour les mêmes raisons
-- `IPv6/CIDR` : Idem
-- `Gateway (IPv6)` : Idem
-- `Autostart` : On laisse coché car on veut que l'interface démarre automatiquement avec la machine
-- `Slaves` : C'est ici que nous associons nos deux cartes `ens19` et `nic0` 
-A terminer !!!
-
+- `IPv4/CIDR` : Ne mettez pas d'IP directement sur le bond car nous partons du principe que nous allons aussi l'utiliser pour des machines virtuelles  
+- `Gateway (IPv4)` : Pas d'IP pour les mêmes raisons  
+- `IPv6/CIDR` : Idem  
+- `Gateway (IPv6)` : Idem  
+- `Autostart` : On laisse coché car on veut que l'interface démarre automatiquement avec la machine  
+- `Slaves` : C'est ici que nous associons nos deux cartes `ens19` et `nic0`  
+- `Mode` : Comme vu précédemment, plusieurs modes s'offrent à nous, mais pour faire simple choisissez `Active-Backup` afin de ne pas dépendre de l'infrastructure réseau comme avec le `LACP`  
+- `bond-primary` : Choisissez l'interface qui sera utilisée en priorité si les deux interfaces sont UP  
+- `Comment` : Un commentaire, si besoin  
 
 > [!note]
 > On assigne une IP directement à des cartes réseaux physique ou des aggrégats si on est sûr de ne pas les utiliser pour des machines virtuelles et quelles seront dediées aux flux hyperviseurs (migration, réplication ZFS, Corosync, Ceph etc...)
 
+<img width="737" height="386" alt="linux_bond" src="https://github.com/user-attachments/assets/3adb6322-5a52-4474-b0bb-2d200cc89ad4" />
+
+3. Plus qu'à assigner ce bond à notre interface `vmbr0` afin d'avoir une interface redondée.  
+Modifiez donc votre `vmbr0` et ajoutez `bond0` dans le champs `Bridge ports`  
+<img width="6172" height="2564" alt="vmbr0_bond0" src="https://github.com/user-attachments/assets/d0a8ffa4-916b-4a55-a64d-1d228b95eb31" />  
+
+**Vous avez maintenant terminé la mise en place de la redondance. Plus qu'à tester.**  
+
 ### Simulation de panne
-1. Arrêt d'une interface
+Afin de tester si la redondance des interfaces fonctionne, vous n'avez qu'à tester d'éteindre votre interface principale (`bond-primary`) et vérifier que vous avez toujours accès à l'interface Web.  
+- Si vous vitualisez les Pve, désactivez l'interface dans la partie `Hardware` de la machine  
+- Si vous avez une machine physique, vous pouvez utiliser `ifdown`
