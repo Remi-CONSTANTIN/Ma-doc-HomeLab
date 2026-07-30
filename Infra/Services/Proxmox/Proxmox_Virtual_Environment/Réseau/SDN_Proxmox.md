@@ -9,11 +9,18 @@ Lorem Ipsum
 Exemple d'utilisation : Une Zone = un client
 
 ### Simple
-Comme un linux bridge mais en mieux :  
-Profites de l'IPAM  
-Gestion centralisée  
-Ne permet pas la communication des VMs entre les nœuds (comme un vmbr)
+Utiliser un Linux bridge (vmbr) ou un Vnet issue d'une zone simple est assez similaire sur certains points mais en y regardant de plus près on remarque que le SDN arrive à tirer son épingle du jeu.  
+Pour comprendre cela, comparons les : 
+|Linux bridge|Zone simple|
+|------------|-----------|
+|Permet de créer un réseau isolé|Idem|
+|Ne permet pas de faire communiquer des VMs situées sur des PVE différents|idem|
+|Peut donner un accès à internet en l'associant à une carte physique|Peut donner un accès à internet à internet en activant le `SNAT` dans le `subnet` de son `Vnet`|
+|Pour avoir le même "vmbr" sur tout vos noeuds, il faut tous les créer à la main|Doit être configuré dans l'onglet Datacenter puis est répliqué sur tout les noeuds|
+|Nécessite une machine connectée au "vmbr" pour avoir le DHCP|Profite du DHCP et de l'IPAM du SDN Proxmox|
 
+En résumé, les deux sont assez similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables
+<br><br>
 ### VLAN
 Lorem Ipsum
 
