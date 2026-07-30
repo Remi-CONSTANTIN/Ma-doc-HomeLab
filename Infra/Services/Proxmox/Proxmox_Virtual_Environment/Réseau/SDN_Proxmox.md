@@ -9,41 +9,77 @@ Lorem Ipsum
 Exemple d'utilisation : Une Zone = un client
 
 ### Simple
-Utiliser un Linux bridge (vmbr) ou un Vnet issue d'une zone simple est assez similaire sur certains points mais en y regardant de plus près on remarque que le SDN arrive à tirer son épingle du jeu.  
+Utiliser un Linux bridge (vmbr) ou un VNet issue d'une zone simple est assez similaire sur certains points mais en y regardant de plus près on remarque que le SDN arrive à tirer son épingle du jeu.  
+
 Pour comprendre cela, comparons les : 
 |Linux bridge|Zone simple|
 |------------|-----------|
 |Permet de créer un réseau isolé|Idem|
-|Ne permet pas de faire communiquer des VMs situées sur des PVE différents|idem|
+|Ne permet pas de faire communiquer des VMs situées sur des PVE différents|Idem|
 |Peut donner un accès à internet en l'associant à une carte physique|Peut donner un accès à internet à internet en activant le `SNAT` dans le `subnet` de son `Vnet`|
-|Pour avoir le même "vmbr" sur tout vos noeuds, il faut tous les créer à la main|Doit être configuré dans l'onglet Datacenter puis est répliqué sur tout les noeuds|
+|Pour avoir le même "vmbr" sur tout vos nœuds, il faut tous les créer à la main|Doit être configuré dans l'onglet Datacenter puis est répliqué sur tout les nœuds|
 |Nécessite une machine connectée au "vmbr" pour avoir le DHCP|Profite du DHCP et de l'IPAM du SDN Proxmox|
 
-En résumé, les deux sont assez similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables
+En résumé, les deux sont assez similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables. L'IPAM intégré est particulièrement utile pour les laboratoires.
 <br><br>
+<br><br>
+
 ### VLAN
-Lorem Ipsum
+Contrairement à la zone simple ou au Linux bridge qui créés un réseau local au PVE, le Linux Bridge (tagué) et la zone VLAN n'isolent pas eux même les flux et délèguent cela à l'infrastructure réseau de l'entreprise.  
+Comme pour la zone simple, la zone VLAN ne révolutionne rien mais vient apporter quelques avantages liés au SDN
+
+Encore une fois, une comparaison des deux sera plus simples pour comprendre : 
+|Linux Bridge|Zone VLAN|
+|-|-|
+|Permet de taguer les flux réseau d'une machine|Idem|
+|Nécessite de taguer la carte réseau de la machine ou de créer un Linux VLAN le PVE pour avoir des flux tagués (Linux VLAN moins utilisé)|Nécessite d'utiliser le VNet de la zone VLAN comme carte réseau pour avoir des flux tagués|
+|N'attribue pas d'IP car consiste juste en un tag ou un Linux VLAN dédié qui n'apporte pas la fonctionnalité|Ne fournis pas non plus de DHCP car consiste seulement en un tag de flux|
+
+En résumé, les deux fournissent le même résultat, c'est à dire de taguer les flux d'une carte réseau afin que l'infrastructure réseau de la société puisse assigner les flux à un VLAN.
+Ils sont donc très similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables. Très utile pour les environnements d'entreprise qui utilisent la plupart du temps les VLANs pour segmenter leur réseau.
+<br><br>
+<br><br>
 
 ### QinQ
-Niche
+La zone QinQ (802.1Q in 802.1Q) permet de d'outrepasser la limite des 4096 Vlan imposée par la norme 802.1Q en mettant un tag Vlan dans un autre tag Vlan.  
+Le `C-VLAN` correspond au tag interne et le `S-VLAN` à l'externe, ajouté et géré par le fournisseur ou l'hébergeur.  
+
+ **Exemple**  
+1. Le routeur de l'opérateur à Paris reçoit les données des clients  
+2. Il enferme toutes les trames du Client A dans un S-VLAN 100 (On aura donc le tag 10 dans le tag 100)
+3. Il enferme toutes les trames du Client B dans un S-VLAN 200 (On aura donc le tag 10 dans le tag 200)
+4. Sur le câble en fibre optique, les switchs de l'opérateur ne regardent que l'étiquette externe (100 ou 200). Il n'y a donc plus aucun conflit
+5. À Lyon, l'opérateur retire l'étiquette externe (100 et 200) et livre les données. Le Client A récupère son VLAN 10 intact, sans jamais savoir qu'il a traversé le pays dans une plus grosse enveloppe
+<br><br>
+<br><br>
 
 ### VXLAN
 Simple en mieux : 
 Communication des VMs inter-nœud
+<br><br>
+<br><br>
 
 ### EVPN
 Lorem Ipsum
+<br><br>
+<br><br>
 
 ## VTNets
 Lorem ipsum
-
-## A voir
-Lorem ipsum
+<br><br>
+<br><br>
 
 ## IPAM
 pve (default native)  
 netbox (api)  
 php-ipam (api)  
+<br><br>
+<br><br>
+
+## A voir
+Lorem ipsum
+<br><br>
+<br><br>
 
 ---
 
@@ -110,14 +146,27 @@ Pour cela rendez-vous dans `Datacenter` --> `SDN` --> `IPAM`
 
 On retrouve bien notre machine et son IP !
 <br><br>
-**C'est tout pour la mise en place d'un zone simple**
+C'est tout pour la mise en place d'un zone simple
 <br><br>
-<br><br>
+Le routeur de l'opérateur à Paris reçoit les données des clients.
+
+Il enferme toutes les trames du Client A dans un S-VLAN 100. (On aura donc le tag 10 dans le tag 100).
+
+Il enferme toutes les trames du Client B dans un S-VLAN 200. (On aura donc le tag 10 dans le tag 200).
+
+Sur le câble en fibre optique, les switchs de l'opérateur ne regardent que l'étiquette externe (100 ou 200). Il n'y a donc plus aucun conflit.
+
+À Lyon, l'opérateur retire l'étiquette externe (100 et 200) et livre les données. Le Client A récupère son VLAN 10 intact, sans jamais savoir qu'il a traversé le pays dans une plus grosse enveloppe.
+## VLAN
+**A mettre en place sur proxmox physique car marche pas sur maquette**
+
+## QinQ
+Lorem Ipsum
 
 ## VXLAN
 Lorem ipsum
 
-## A voir
+## EVPN
 Lorem ipsum
 
 ---
