@@ -14,16 +14,6 @@ Profites de l'IPAM
 Gestion centralisée  
 Ne permet pas la communication des VMs entre les nœuds (comme un vmbr)
 
-**Configuration**
-Pour créer une zone de ce type voici un exemple de configuration :  
-<img width="1252" height="655" alt="simple_zone" src="https://github.com/user-attachments/assets/894ddb7e-1300-4a05-afaf-ac3d1442e596" />  
-- `ID` : Un simple nom d'affichage limité à 8 caractères
-- `MTU` : Taille des paquets, laissez en auto dans le cas d'une zone simple
-- `Nodes` : Vous pouvez limiter la création de cette zone à certains nœuds de votre cluster. A vous d'adapter en fonction de vos besoins
-- `IPAM` : Par défaut `pve` car natif à Proxmox. Vous pouvez en choisir un autre. Le sujet sera abordé en détails dans la partie `IPAM`
-- `DNS Server` + `Reverse DNS Server` + `DNS Zone` : Utile si vous avez un service DNS externe à Proxmox. Pas abordé ici
-- `Automatic DHCP` : Active le DHCP sur la zone. L'IPAM ne sert à rien si pas coché 
-
 ### VLAN
 Lorem Ipsum
 
@@ -54,7 +44,19 @@ php-ipam (api)
 Lorem ipsum
 
 ## Simple
-Lorem Ipsum
+Pour créer une zone de ce type voici un exemple de configuration :  
+
+1. La première étape est de créer la zone simple dans `Datacenter` --> `SDN` --> `Zones`
+<img width="1252" height="655" alt="simple_zone" src="https://github.com/user-attachments/assets/894ddb7e-1300-4a05-afaf-ac3d1442e596" />
+
+- `ID` : Un simple nom d'affichage limité à 8 caractères
+- `MTU` : Taille des paquets, laissez en auto dans le cas d'une zone simple
+- `Nodes` : Vous pouvez limiter la création de cette zone à certains nœuds de votre cluster. A vous d'adapter en fonction de vos besoins
+- `IPAM` : Par défaut `pve` car natif à Proxmox. Vous pouvez en choisir un autre. Le sujet sera abordé en détails dans la partie `IPAM`
+- `DNS Server` + `Reverse DNS Server` + `DNS Zone` : Utile si vous avez un service DNS externe à Proxmox. Pas abordé ici
+- `Automatic DHCP` : Active le DHCP sur la zone. L'IPAM ne sert à rien si pas coché 
+<br><br>
+2. Lorem Ipsum
 
 ## VXLAN
 Lorem ipsum
