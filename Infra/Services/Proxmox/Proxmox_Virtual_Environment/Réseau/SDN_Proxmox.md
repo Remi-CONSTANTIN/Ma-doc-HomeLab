@@ -21,7 +21,7 @@ Pour comprendre cela, comparons les :
 |------------|-----------|
 |Permet de créer un réseau isolé|Idem|
 |Ne permet pas de faire communiquer des VMs situées sur des PVE différents|Idem|
-|Peut donner un accès à internet en l'associant à une carte physique|Peut donner un accès à internet à internet en activant le `SNAT` dans le `subnet` de son `Vnet`|
+|Peut donner un accès à internet en l'associant à une carte physique|Peut donner un accès à internet à internet en activant le `SNAT` dans le `subnet` de son `VNet`|
 |Pour avoir le même "vmbr" sur tout vos nœuds, il faut tous les créer à la main|Doit être configuré dans l'onglet Datacenter puis est répliqué sur tout les nœuds|
 |Nécessite une machine connectée au "vmbr" pour avoir le DHCP|Profite du DHCP et de l'IPAM du SDN Proxmox|
 
@@ -56,16 +56,18 @@ Le `C-VLAN` correspond au tag interne et le `S-VLAN` à l'externe, ajouté et g�
 <br><br>
 
 ### VXLAN
-Simple en mieux : 
-Communication des VMs inter-nœud
+Réseau fermé comme la zone simple, permet tout de même le SNAT mais pas le DHCP --> Nécessite un routeur virtuel dans le réseau pour avoir accès au DHCP
+SNAT au lieu d'un routeur virtuel tout à fait adapté pour un laboratoire mais n'est pas conseillé en prod car routeur virtuel est plus adapté (redirection de port, ids ips etc..).
 <br><br>
 
 ### EVPN
 Lorem Ipsum
 <br><br>
+<br><br>
 
 ## VTNets
 Lorem ipsum
+<br><br>
 <br><br>
 
 ## IPAM
@@ -73,8 +75,14 @@ pve (default native)
 netbox (api)  
 php-ipam (api)  
 <br><br>
+<br><br>
 
-## A voir
+## VNet Firewall
+Lorem ipsum
+<br><br>
+<br><br>
+
+## Fabrics
 Lorem ipsum
 <br><br>
 <br><br>
@@ -98,18 +106,18 @@ Il sera abordé ici la création et l'utilisation d'une zone de type `simple`
 - `Automatic DHCP` : Active le DHCP sur la zone. L'IPAM ne sert à rien si vous choisissez de ne pas activer le DHCP
 <br><br>
 
-2. Allez dans `Datacenter` --> `SDN` --> `VNets` et créez un nouveau `Vnet`
+2. Allez dans `Datacenter` --> `SDN` --> `VNets` et créez un nouveau `VNet`
 <img width="779" height="419" alt="vnets_simple" src="https://github.com/user-attachments/assets/8532beba-d4fb-4ee9-92c5-4440d8fa1cfb" />
 
 
-- `Name` : Nom d'affichage du Vnet
-- `Alias` : Description ou alias du Vnet
+- `Name` : Nom d'affichage du VNet
+- `Alias` : Description ou alias du VNet
 - `Zone` : La zone à utiliser. Dans notre cas, la zone `Simple1`
 - `Isolate Ports` : Isole les machines entre elles dans le réseau sans couper l'accès à la passerelle
 - `VLAN Aware` : Autorise les flux tagués si vous utilisez un routeur virtuel dans le réseau
 <br><br>
 
-3. Dans ce même Vnet, créez un réseau dans la partie `Subnets` on complétant les deux onglets : 
+3. Dans ce même VNet, créez un réseau dans la partie `Subnets` on complétant les deux onglets : 
 
 **General**  
 <img width="1141" height="383" alt="subnet1_vnets_simple" src="https://github.com/user-attachments/assets/2cda92d4-804f-435e-ad16-68051a30ed29" />
@@ -154,7 +162,33 @@ C'est tout pour la mise en place d'un zone simple
 Lorem Ipsum
 
 ## VXLAN
-Lorem ipsum
+Pour tester le fonctionnement de la zone VXLAN, vous aurez besoin d'un cluster Proxmox d'au moins deux nœuds et d'une machine sur chaque PVE.  
+
+1. Comme pour les autres, créez la zone dans le SDN (`Datacenter` --> `SDN` --> `Zones`) puis commencez la configuration comme dans cet exemple :
+<img width="889" height="627" alt="vxlan1_zone" src="https://github.com/user-attachments/assets/d868800e-ffba-4e5f-91ee-964781695f1b" />
+
+- `ID` : Un simple nom d'affichage limité à 8 caractères
+- `Peer Address List` : La liste des nœuds PVE concernés par la propagation du réseau. Peut inclure des PVE d'autres cluster à la seule condition que vous y ayez créé la même zone
+- `SDN Fabric` : Si configurée, permet de se passer de la `Peer Address List`
+- `MTU` : Taille des paquets, laisser en auto pour que Proxmox l'adapte à votre carte physique (le protocole VXLAN utilise 50 octets pour encapsuler le trafic, Proxmox va donc descendre le MTU à 1450 sur une installation basique de Proxmox avec une infrastructure réseau standard)
+- `Nodes` : Permet de restreindre l'activation de la zone à certains nœuds. Utile dans le cas où il faut étendre un LAN entre quelques nœuds seulement de deux (ou plus) clusters distants
+- `IPAM` : Même si le DHCP n'est pas proposé dans ce type de zone, il peut être utile de tenir un inventaire des IPs. De plus, peut être utilisé pour assigner une IP libre automatiquement avec Cloud-Init, un peu comme un DHCP. Le choix par défaut étant `pve`
+- `DNS Server` + `Reverse DNS Server` + `DNS Zone` : Utile si vous avez un service DNS externe à Proxmox. Pas abordé ici
+
+2. Une fois la zone, créé et comme pour les autres zones, créez un nouveau VNet dans `Datacenter` --> `SDN` --> `VNets`
+<img width="855" height="444" alt="vnets_vxlan" src="https://github.com/user-attachments/assets/9dc4ea33-7649-484a-b16b-a8bccbf4e5ba" />
+
+- `Name` : Nom d'affichage du VNet
+- `Alias` : Description ou alias du VNet
+- `Zone` : La zone à utiliser. Dans notre cas, la zone `VXLAN1`
+- `Tag` : Correspond au tag VNI (VXLAN Network Identifier) et non pas au tag VLAN comme pour la zone VLAN. Nous ne sommes donc pas limité à 4096 tag mais à 16 777 215
+- `Isolate Ports` : Isole les machines entre elles dans le réseau sans couper l'accès à la passerelle
+- `VLAN Aware` : Autorise les flux tagués si vous utilisez un routeur virtuel dans le réseau
+
+3. Dans ce même VNet, créez un réseau dans la partie `Subnets` on complétant les deux onglets : 
+**A finir**
+
+
 
 ## EVPN
 Lorem ipsum
@@ -163,7 +197,7 @@ Lorem ipsum
 
 # Erreurs connues
 
-### Erreur 500 lors de la suppression d'un subnet dans un Vnet
+### Erreur 500 lors de la suppression d'un subnet dans un VNet
 1. Passez en CLI sur un des nœuds et éditez le fichier `/etc/pve/sdn/subnets.cfg`
 2. Supprimez les lignes qui correspondent à votre subnet
 3. Vérifiez que le subnet est passé dans l'état `Deleted` dans `Datacenter` --> `SDN` --> `VNets` --> Votre-VNet
