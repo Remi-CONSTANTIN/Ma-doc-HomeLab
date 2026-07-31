@@ -146,15 +146,7 @@ On retrouve bien notre machine et son IP !
 <br><br>
 C'est tout pour la mise en place d'un zone simple
 <br><br>
-Le routeur de l'opérateur à Paris reçoit les données des clients.
 
-Il enferme toutes les trames du Client A dans un S-VLAN 100. (On aura donc le tag 10 dans le tag 100).
-
-Il enferme toutes les trames du Client B dans un S-VLAN 200. (On aura donc le tag 10 dans le tag 200).
-
-Sur le câble en fibre optique, les switchs de l'opérateur ne regardent que l'étiquette externe (100 ou 200). Il n'y a donc plus aucun conflit.
-
-À Lyon, l'opérateur retire l'étiquette externe (100 et 200) et livre les données. Le Client A récupère son VLAN 10 intact, sans jamais savoir qu'il a traversé le pays dans une plus grosse enveloppe.
 ## VLAN
 **A mettre en place sur proxmox physique car marche pas sur maquette**
 
