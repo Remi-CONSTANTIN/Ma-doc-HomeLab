@@ -1,12 +1,17 @@
 # Introduction
-Lorem ipsum
+L'objectif ici va être de décortiquer le SDN proposé par Proxmox.
+Nous allons tout d'abord essayer d’appréhender le principe théorique de chacun de ses composants puis nous verrons son utilisation concrète afin de comprendre l'interface par toujours très intuitive de PVE.
+
+---
 
 # La théorie
-Lorem ipsum
+Il aurait été possible de se lancer directement dans la pratique mais le SDN comporte un nombre conséquent de fonctionnalités nécessitant d'avoir une base théorique afin de savoir comment les configurer.  
+Si vous n'avez pas bien suivis vos cours de réseau cela est d'autant plus vrai...
+<br><br>
 
 ## Zones
-Lorem Ipsum  
-Exemple d'utilisation : Une Zone = un client
+Les zones définissent le protocole utilisé par les switchs virtuels que nous allons créer à l'intérieur (VNet). Elles définissent comment les données vont voyagées.  
+Cela peut paraître abstrait pour l'instant mais vous comprendrez en suivant ce cours.  
 
 ### Simple
 Utiliser un Linux bridge (vmbr) ou un VNet issue d'une zone simple est assez similaire sur certains points mais en y regardant de plus près on remarque que le SDN arrive à tirer son épingle du jeu.  
@@ -21,7 +26,6 @@ Pour comprendre cela, comparons les :
 |Nécessite une machine connectée au "vmbr" pour avoir le DHCP|Profite du DHCP et de l'IPAM du SDN Proxmox|
 
 En résumé, les deux sont assez similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables. L'IPAM intégré est particulièrement utile pour les laboratoires.
-<br><br>
 <br><br>
 
 ### VLAN
@@ -38,7 +42,6 @@ Encore une fois, une comparaison des deux sera plus simples pour comprendre :
 En résumé, les deux fournissent le même résultat, c'est à dire de taguer les flux d'une carte réseau afin que l'infrastructure réseau de la société puisse assigner les flux à un VLAN.
 Ils sont donc très similaire dans les fonctionnalités qu'ils proposent mais le SDN apporte quelques fonctionnalités supplémentaires non négligeables. Très utile pour les environnements d'entreprise qui utilisent la plupart du temps les VLANs pour segmenter leur réseau.
 <br><br>
-<br><br>
 
 ### QinQ
 La zone QinQ (802.1Q in 802.1Q) permet de d'outrepasser la limite des 4096 Vlan imposée par la norme 802.1Q en mettant un tag Vlan dans un autre tag Vlan.  
@@ -51,29 +54,24 @@ Le `C-VLAN` correspond au tag interne et le `S-VLAN` à l'externe, ajouté et g�
 4. Sur le câble en fibre optique, les switchs de l'opérateur ne regardent que l'étiquette externe (100 ou 200). Il n'y a donc plus aucun conflit
 5. À Lyon, l'opérateur retire l'étiquette externe (100 et 200) et livre les données. Le Client A récupère son VLAN 10 intact, sans jamais savoir qu'il a traversé le pays dans une plus grosse enveloppe
 <br><br>
-<br><br>
 
 ### VXLAN
 Simple en mieux : 
 Communication des VMs inter-nœud
 <br><br>
-<br><br>
 
 ### EVPN
 Lorem Ipsum
 <br><br>
-<br><br>
 
 ## VTNets
 Lorem ipsum
-<br><br>
 <br><br>
 
 ## IPAM
 pve (default native)  
 netbox (api)  
 php-ipam (api)  
-<br><br>
 <br><br>
 
 ## A voir
@@ -176,5 +174,5 @@ Lorem ipsum
 ### Erreur 500 lors de la suppression d'un subnet dans un Vnet
 1. Passez en CLI sur un des nœuds et éditez le fichier `/etc/pve/sdn/subnets.cfg`
 2. Supprimez les lignes qui correspondent à votre subnet
-3. Vérifiez que le subnet est passé dans l'état `Deleted` dans `Datacenter` --> `SDN` --> `VNets` --> <votre-VNet>
+3. Vérifiez que le subnet est passé dans l'état `Deleted` dans `Datacenter` --> `SDN` --> `VNets` --> Votre-VNet
 4. Si bien supprimé, appliquez les changements dans `Datacenter` --> `SDN`
