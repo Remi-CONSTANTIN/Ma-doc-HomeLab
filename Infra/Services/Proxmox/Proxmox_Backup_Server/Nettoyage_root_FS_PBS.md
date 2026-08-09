@@ -3,11 +3,12 @@ Il arrive que le disque système de PBS vienne à manquer de place. Cela est cou
 <br>
 
 Dans mon cas, PBS est une machine virtuelle avec un disque de 40Go dédié au système
-<img width="955" height="282" alt="df-h_pbs" src="https://github.com/user-attachments/assets/02f1e5fd-946d-4cb0-a61d-4eff486ea89e" />
 <br>
 
 > [!warning]
 > L'utilisation d'un serveur de sauvegarde dans une machine virtuelle n'est généralement pas conseillé car si votre cluster Proxmox tombe, la solution que aurait pu vous permettre de restaurer vos sauvegarde tombe aussi !
+> 
+> Je fais cela chez moi à cause de mes contraintes financières
 <br>
 
 # Problème et diagnostique
@@ -15,10 +16,10 @@ J'ai tout d'abord reçu une alerte de ma supervision
 <img width="1535" height="33" alt="supervision_alert_root_fs_pbs" src="https://github.com/user-attachments/assets/ff7c6e09-5942-44d4-bf3a-2ef77f30edf2" />
 
 Effectivement mon unique partition montée sur la racine `/` allait venir à manquer de place
-<img width="955" height="282" alt="df-h_pbs" src="https://github.com/user-attachments/assets/89f391cf-45a4-46c6-b2db-1a8bf7a59842" />
+<img width="764" height="225" alt="df-h_pbs" src="https://github.com/user-attachments/assets/89f391cf-45a4-46c6-b2db-1a8bf7a59842" />
 
 Après investigation, je me suis rendu compte que mon repertoire `/usr/lib/modules` occupait 18 sur 40Go !
-<img width="367" height="522" alt="usr-lib-modules_pbs" src="https://github.com/user-attachments/assets/2e409ad7-d6bb-49a1-91bf-4461cd0b63b8" />
+<img width="293" height="417" alt="usr-lib-modules_pbs" src="https://github.com/user-attachments/assets/2e409ad7-d6bb-49a1-91bf-4461cd0b63b8" />
 
 **Mais pourquoi ce dossier contient autant de données ?**  
 --> Ce repertoire contient les anciens kernels PVE car PBS les stock afin de pouvoir revenir en arrière en cas de problème
