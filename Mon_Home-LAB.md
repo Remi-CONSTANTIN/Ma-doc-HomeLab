@@ -2,6 +2,14 @@
 Vous trouverez ici une présentation de mon Home-Lab.
 Chaque grande thématiques va être abordée dans sa propre partie.
 
+# Diagrammes isométriques
+## Vue physique du Home-lab
+<img width="753" alt="home-lab_vue_physique" src="https://github.com/user-attachments/assets/01c680ac-9a93-4e34-891c-ef69205c6bbe" />
+
+## Vue logique des réseaux
+<img width="753" alt="Réseaux_vue_logique" src="https://github.com/user-attachments/assets/48d741b4-ee9e-40ae-ad0d-217b094e78f0" />
+
+
 # Ma vision des choses
 Je choisis les outils que je mets dans mon home-lab en me basant sur ces critères :  
 
